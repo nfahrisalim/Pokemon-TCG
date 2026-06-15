@@ -6,12 +6,8 @@ import { Card } from './cards/card.entity';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'your_db_user',
-      password: 'your_db_password',
-      database: 'poke_admin_db',
+      type: 'better-sqlite3',
+      database: 'poke_admin.db',
       entities: [Set, Card],
       synchronize: true, 
     }),
