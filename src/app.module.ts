@@ -10,21 +10,26 @@ import { TcgPlayer } from './tcg-player/tcg-player.entity';
 import { PokedexCard } from './pokedex-card/pokedex-card.entity';
 import { Subtype } from './subtype/subtype.entity';
 import { CardType } from './card-type/card-type.entity';
+import { Deck } from './deck/deck.entity';
+import { DeckType } from './deck/deck-type.entity';
+import { DeckCard } from './deck/deck-card.entity';
 import { SetsModule } from './sets/sets.module';
 import { CardsModule } from './cards/cards.module';
 import { AuthModule } from './auth/auth.module';
+import { SeederModule } from './seeder/seeder.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'better-sqlite3',
       database: 'poke_admin.db',
-      entities: [Set, Card, Legality, Rarity, Supertype, Type, TcgPlayer, PokedexCard, Subtype, CardType],
+      entities: [Set, Card, Legality, Rarity, Supertype, Type, TcgPlayer, PokedexCard, Subtype, CardType, Deck, DeckType, DeckCard],
       synchronize: true,
     }),
     SetsModule,
     CardsModule,
     AuthModule,
+    SeederModule,
   ],
 })
 export class AppModule {}
