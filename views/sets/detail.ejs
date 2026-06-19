@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head><title>Set Details</title></head>
+<body style="font-family: sans-serif; padding: 20px;">
+    <h1>Set: <%= set.name %></h1>
+    <p>Release Date: <%= set.releaseDate %></p>
+    
+    <h2>Cards in this Set:</h2>
+    <ul>
+        <!-- Menampilkan Card yang memiliki relasi dengan Set ini -->
+        <% set.cards.forEach(card => { %>
+            <li><a href="/cards/<%= card.id %>"><%= card.name %> (HP: <%= card.hp %>)</a></li>
+        <% }) %>
+    </ul>
+    
+    <a href="/sets">Back to Sets</a>
+</body>
+</html>

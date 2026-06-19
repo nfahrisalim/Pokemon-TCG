@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head><title>Sets - Admin Panel</title></head>
+<body style="font-family: sans-serif; padding: 20px;">
+    <h1>Pokémon Sets</h1>
+    <a href="/cards">Manage Cards</a> | <a href="/auth/logout">Logout</a>
+    <hr>
+    
+    <!-- Fitur Search -->
+    <form action="/sets" method="GET" style="margin-bottom: 20px;">
+        <input type="text" name="search" placeholder="Search sets..." value="<%= search %>">
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- List View -->
+    <ul>
+        <% sets.forEach(set => { %>
+            <li>
+                <a href="/sets/<%= set.id %>"><%= set.name %> (<%= set.releaseDate %>)</a>
+            </li>
+        <% }) %>
+    </ul>
+</body>
+</html>
