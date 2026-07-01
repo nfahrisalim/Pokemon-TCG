@@ -15,7 +15,7 @@ export class SetsController {
   }
 
   @Get(':id')
-  async getSetDetail(@Param('id') id: number, @Req() req: Request, @Res() res: Response) {
+  async getSetDetail(@Param('id') id: string, @Req() req: Request, @Res() res: Response) {
     if (!req.session['isAuthenticated']) return res.redirect('/auth/login');
 
     const set = await this.setsService.findOne(id);

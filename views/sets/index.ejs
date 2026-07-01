@@ -1,24 +1,33 @@
 <!DOCTYPE html>
 <html>
-<head><title>Sets - Admin Panel</title></head>
-<body style="font-family: sans-serif; padding: 20px;">
-    <h1>Pokémon Sets</h1>
-    <a href="/cards">Manage Cards</a> | <a href="/auth/logout">Logout</a>
-    <hr>
-    
-    <!-- Fitur Search -->
-    <form action="/sets" method="GET" style="margin-bottom: 20px;">
-        <input type="text" name="search" placeholder="Search sets..." value="<%= search %>">
-        <button type="submit">Search</button>
-    </form>
+<head>
+    <title>Sets - Admin Panel</title>
+    <link rel="stylesheet" href="/css/retro-theme.css" />
+</head>
+<body>
+    <div class="retro-shell">
+        <p class="retro-tag">Deck Radar</p>
+        <h1 class="retro-title">Pokémon Sets</h1>
+        <nav class="retro-nav">
+            <a href="/cards">Manage Cards</a>
+            <a href="/auth/logout">Logout</a>
+        </nav>
+        
+        <form action="/sets" method="GET" class="retro-form" style="margin-bottom: 18px;">
+            <div class="retro-field">
+                <label class="retro-label">Search sets</label>
+                <input class="retro-input" type="text" name="search" placeholder="Search sets..." value="<%= search %>">
+            </div>
+            <button class="retro-button" type="submit">Search</button>
+        </form>
 
-    <!-- List View -->
-    <ul>
-        <% sets.forEach(set => { %>
-            <li>
-                <a href="/sets/<%= set.id %>"><%= set.name %> (<%= set.releaseDate %>)</a>
-            </li>
-        <% }) %>
-    </ul>
+        <ul class="retro-list">
+            <% sets.forEach(set => { %>
+                <li>
+                    <a href="/sets/<%= set.set_id %>"><%= set.set_name %> (<%= set.release_date %>)</a>
+                </li>
+            <% }) %>
+        </ul>
+    </div>
 </body>
 </html>

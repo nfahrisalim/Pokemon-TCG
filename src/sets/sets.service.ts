@@ -13,15 +13,15 @@ export class SetsService {
   findAll(searchQuery?: string): Promise<Set[]> {
     if (searchQuery) {
       return this.setsRepository.find({
-        where: { name: Like(`%${searchQuery}%`) },
+        where: { set_name: Like(`%${searchQuery}%`) },
       });
     }
     return this.setsRepository.find();
   }
 
-  findOne(id: number): Promise<Set | null> {
+  findOne(id: string): Promise<Set | null> {
     return this.setsRepository.findOne({
-      where: { id },
+      where: { set_id: id },
       relations: { cards: true },
     });
   }

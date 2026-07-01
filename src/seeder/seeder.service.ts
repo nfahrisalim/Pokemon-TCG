@@ -7,7 +7,7 @@ import { Supertype } from '../supertype/supertype.entity';
 import { Rarity } from '../rarity/rarity.entity';
 import { Type } from '../type/type.entity';
 import { Legality } from '../legality/legality.entity';
-import { Set } from '../sets/set.entity';
+import { Set as SetEntity } from '../sets/set.entity';
 import { Card } from '../cards/card.entity';
 import { Subtype } from '../subtype/subtype.entity';
 import { CardType } from '../card-type/card-type.entity';
@@ -33,8 +33,8 @@ export class SeederService {
     private typeRepository: Repository<Type>,
     @InjectRepository(Legality)
     private legalityRepository: Repository<Legality>,
-    @InjectRepository(Set)
-    private setRepository: Repository<Set>,
+    @InjectRepository(SetEntity)
+    private setRepository: Repository<SetEntity>,
     @InjectRepository(Card)
     private cardRepository: Repository<Card>,
     @InjectRepository(Subtype)
@@ -56,6 +56,12 @@ export class SeederService {
   ) {}
 
   async seed(): Promise<void> {
+    const existingSupertypeCount = await this.supertypeRepository.count();
+    if (existingSupertypeCount > 0) {
+      console.log('[Seeder] Data already exists, skipping seed.');
+      return;
+    }
+
     console.log('[Seeder] Starting database seeding...');
 
     try {
@@ -268,10 +274,12 @@ export class SeederService {
 
       try {
         for (const cardData of cardsData) {
-          const supertypeId = cardData.supertype
-            ? this.supertypeCache.get(cardData.supertype) || null
-            : null;
+          const supertypeId = cardData.supertype ? this.supertypeCache.get(cardData.supertype) : null;
           const rarityId = cardData.rarity ? this.rarityCache.get(cardData.rarity) || null : null;
+
+          if (cardData.supertype && (supertypeId === null || supertypeId === undefined)) {
+            throw new Error(`[Seeder] Missing supertype id for card "${cardData.name}" (${cardData.id})`);
+          }
 
           const hp = cardData.hp ? parseInt(cardData.hp, 10) : null;
 
@@ -284,7 +292,7 @@ export class SeederService {
               card_id: cardData.id,
               card_name: cardData.name,
               set_id: setId,
-              supertype_id: supertypeId,
+              ...(supertypeId !== null && supertypeId !== undefined ? { supertype_id: supertypeId } : {}),
               rarity_id: rarityId,
               hp,
               number: cardData.number,

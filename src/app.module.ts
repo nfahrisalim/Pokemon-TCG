@@ -13,6 +13,8 @@ import { CardType } from './card-type/card-type.entity';
 import { Deck } from './deck/deck.entity';
 import { DeckType } from './deck/deck-type.entity';
 import { DeckCard } from './deck/deck-card.entity';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 import { SetsModule } from './sets/sets.module';
 import { CardsModule } from './cards/cards.module';
 import { AuthModule } from './auth/auth.module';
@@ -24,12 +26,14 @@ import { SeederModule } from './seeder/seeder.module';
       type: 'better-sqlite3',
       database: 'poke_admin.db',
       entities: [Set, Card, Legality, Rarity, Supertype, Type, TcgPlayer, PokedexCard, Subtype, CardType, Deck, DeckType, DeckCard],
-      synchronize: true,
+      synchronize: process.env.NODE_ENV !== 'production',
     }),
     SetsModule,
     CardsModule,
     AuthModule,
     SeederModule,
   ],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

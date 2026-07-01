@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <html>
-<head><title>Set Details</title></head>
-<body style="font-family: sans-serif; padding: 20px;">
-    <h1>Set: <%= set.name %></h1>
-    <p>Release Date: <%= set.releaseDate %></p>
-    
-    <h2>Cards in this Set:</h2>
-    <ul>
-        <!-- Menampilkan Card yang memiliki relasi dengan Set ini -->
-        <% set.cards.forEach(card => { %>
-            <li><a href="/cards/<%= card.id %>"><%= card.name %> (HP: <%= card.hp %>)</a></li>
-        <% }) %>
-    </ul>
-    
-    <a href="/sets">Back to Sets</a>
+<head>
+    <title>Set Details</title>
+    <link rel="stylesheet" href="/css/retro-theme.css" />
+</head>
+<body>
+    <div class="retro-shell">
+        <p class="retro-tag">Card Vault</p>
+        <h1 class="retro-title">Set: <%= set.set_name %></h1>
+        <p class="retro-meta">Release Date: <%= set.release_date %></p>
+        
+        <div class="retro-section">
+            <h2 class="retro-subtitle">Cards in this Set</h2>
+            <ul class="retro-list">
+                <% set.cards.forEach(card => { %>
+                    <li><a href="/cards/<%= card.card_id %>"><%= card.card_name %> (HP: <%= card.hp %>)</a></li>
+                <% }) %>
+            </ul>
+        </div>
+        
+        <a class="retro-link" href="/sets" style="margin-top: 18px;">Back to Sets</a>
+    </div>
 </body>
 </html>

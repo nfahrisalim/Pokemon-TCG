@@ -15,7 +15,7 @@ export class CardsController {
   }
 
   @Get(':id')
-  async getCardDetail(@Param('id') id: number, @Req() req: Request, @Res() res: Response) {
+  async getCardDetail(@Param('id') id: string, @Req() req: Request, @Res() res: Response) {
     if (!req.session['isAuthenticated']) return res.redirect('/auth/login');
 
     const card = await this.cardsService.findOne(id);

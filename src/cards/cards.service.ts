@@ -13,16 +13,16 @@ export class CardsService {
   findAll(searchQuery?: string): Promise<Card[]> {
     if (searchQuery) {
       return this.cardsRepository.find({
-        where: { name: Like(`%${searchQuery}%`) },
+        where: { card_name: Like(`%${searchQuery}%`) },
         relations: { set: true },
       });
     }
     return this.cardsRepository.find({ relations: { set: true } });
   }
 
-  findOne(id: number): Promise<Card | null> {
+  findOne(id: string): Promise<Card | null> {
     return this.cardsRepository.findOne({
-      where: { id },
+      where: { card_id: id },
       relations: { set: true },
     });
   }
