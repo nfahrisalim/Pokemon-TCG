@@ -312,6 +312,10 @@ body::before {
   background: var(--color-black);
 }
 
+.retro-image-frame + .retro-image-frame {
+  margin-top: 10px;
+}
+
 .retro-image-frame img {
   max-width: 100%;
   height: auto;

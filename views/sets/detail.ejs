@@ -52,10 +52,17 @@
                     <section class="retro-panel bento-tile">
                         <h2 class="retro-subtitle">Set Image</h2>
                         <div class="retro-image-frame">
-                            <% if (set.image_url) { %>
-                                <img src="<%= set.image_url %>" alt="<%= set.set_name %> artwork" />
+                            <% if (set.logo_img) { %>
+                                <img src="<%= set.logo_img %>" alt="<%= set.set_name %> logo" />
                             <% } else { %>
-                                <span class="retro-meta">No image available</span>
+                                <span class="retro-meta">No logo available</span>
+                            <% } %>
+                        </div>
+                        <div class="retro-image-frame">
+                            <% if (set.symbol_img) { %>
+                                <img src="<%= set.symbol_img %>" alt="<%= set.set_name %> symbol" />
+                            <% } else { %>
+                                <span class="retro-meta">No symbol available</span>
                             <% } %>
                         </div>
                     </section>
