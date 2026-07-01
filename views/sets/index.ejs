@@ -5,29 +5,49 @@
     <link rel="stylesheet" href="/css/retro-theme.css" />
 </head>
 <body>
-    <div class="retro-shell">
-        <p class="retro-tag">Deck Radar</p>
-        <h1 class="retro-title">Pokémon Sets</h1>
-        <nav class="retro-nav">
-            <a href="/cards">Manage Cards</a>
-            <a href="/auth/logout">Logout</a>
-        </nav>
-        
-        <form action="/sets" method="GET" class="retro-form" style="margin-bottom: 18px;">
-            <div class="retro-field">
-                <label class="retro-label">Search sets</label>
-                <input class="retro-input" type="text" name="search" placeholder="Search sets..." value="<%= search %>">
-            </div>
-            <button class="retro-button" type="submit">Search</button>
-        </form>
+    <div class="app-layout">
+        <aside class="app-sidebar">
+            <p class="retro-tag">Deck Radar</p>
+            <nav class="retro-nav-vertical">
+                <a href="/sets">Sets</a>
+                <a href="/cards">Manage Cards</a>
+                <a href="/auth/logout">Logout</a>
+            </nav>
+        </aside>
 
-        <ul class="retro-list">
-            <% sets.forEach(set => { %>
-                <li>
-                    <a href="/sets/<%= set.set_id %>"><%= set.set_name %> (<%= set.release_date %>)</a>
-                </li>
-            <% }) %>
-        </ul>
+        <main class="app-main">
+            <div class="mobile-topbar">
+                <span class="mobile-topbar-title">Deck Radar</span>
+                <nav class="mobile-topbar-nav">
+                    <a class="retro-link" href="/sets">Sets</a>
+                    <a class="retro-link" href="/cards">Cards</a>
+                    <a class="retro-link" href="/auth/logout">Logout</a>
+                </nav>
+            </div>
+
+            <div class="retro-shell">
+                <h1 class="retro-title">Pokémon Sets</h1>
+
+                <form action="/sets" method="GET" class="retro-form">
+                    <div class="retro-field">
+                        <label class="retro-label">Search sets</label>
+                        <input class="retro-input" type="text" name="search" placeholder="Search sets..." value="<%= search %>">
+                    </div>
+                    <button class="retro-button" type="submit">Search</button>
+                </form>
+
+                <ul class="retro-list retro-list-grid">
+                    <% sets.forEach((set, index) => { %>
+                        <li class="bento-tile <%= index === 0 ? 'bento-featured' : '' %>">
+                            <a href="/sets/<%= set.set_id %>">
+                                <strong class="retro-accent"><%= set.set_name %></strong>
+                                <div class="retro-meta">Released: <%= set.release_date %></div>
+                            </a>
+                        </li>
+                    <% }) %>
+                </ul>
+            </div>
+        </main>
     </div>
 </body>
 </html>

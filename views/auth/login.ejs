@@ -7,25 +7,27 @@
     <link rel="stylesheet" href="/css/retro-theme.css" />
 </head>
 <body>
-    <div class="retro-shell" style="max-width: 440px;">
-        <p class="retro-tag">Game Boy Admin</p>
-        <h2 class="retro-title">Pokémon TCG Admin Panel</h2>
-        
-        <% if (error) { %>
-            <p class="retro-error"><%= error %></p>
-        <% } %>
+    <main class="login-page">
+        <div class="retro-shell login-shell bento-tile">
+            <p class="retro-tag">Game Boy Admin</p>
+            <h2 class="retro-title">Pokémon TCG Admin Panel</h2>
 
-        <form action="/auth/login" method="POST" class="retro-form">
-            <div class="retro-field">
-                <label class="retro-label">Username</label>
-                <input class="retro-input" type="text" name="username" required />
-            </div>
-            <div class="retro-field">
-                <label class="retro-label">Password</label>
-                <input class="retro-input" type="password" name="password" required />
-            </div>
-            <button class="retro-button" type="submit">Log In</button>
-        </form>
-    </div>
+            <% if (error) { %>
+                <p class="retro-error"><%= error %></p>
+            <% } %>
+
+            <form action="/auth/login" method="POST" class="retro-form">
+                <div class="retro-field">
+                    <label class="retro-label">Username</label>
+                    <input class="retro-input" type="text" name="username" required />
+                </div>
+                <div class="retro-field">
+                    <label class="retro-label">Password</label>
+                    <input class="retro-input" type="password" name="password" required />
+                </div>
+                <button class="retro-button" type="submit">Log In</button>
+            </form>
+        </div>
+    </main>
 </body>
 </html>

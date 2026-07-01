@@ -5,21 +5,77 @@
     <link rel="stylesheet" href="/css/retro-theme.css" />
 </head>
 <body>
-    <div class="retro-shell">
-        <p class="retro-tag">Card Vault</p>
-        <h1 class="retro-title">Set: <%= set.set_name %></h1>
-        <p class="retro-meta">Release Date: <%= set.release_date %></p>
-        
-        <div class="retro-section">
-            <h2 class="retro-subtitle">Cards in this Set</h2>
-            <ul class="retro-list">
-                <% set.cards.forEach(card => { %>
-                    <li><a href="/cards/<%= card.card_id %>"><%= card.card_name %> (HP: <%= card.hp %>)</a></li>
-                <% }) %>
-            </ul>
-        </div>
-        
-        <a class="retro-link" href="/sets" style="margin-top: 18px;">Back to Sets</a>
+    <div class="app-layout">
+        <aside class="app-sidebar">
+            <p class="retro-tag">Card Vault</p>
+            <nav class="retro-nav-vertical">
+                <a href="/sets">Sets</a>
+                <a href="/cards">Cards</a>
+                <a href="/auth/logout">Logout</a>
+            </nav>
+        </aside>
+
+        <main class="app-main">
+            <div class="mobile-topbar">
+                <span class="mobile-topbar-title">Card Vault</span>
+                <nav class="mobile-topbar-nav">
+                    <a class="retro-link" href="/sets">Sets</a>
+                    <a class="retro-link" href="/cards">Cards</a>
+                    <a class="retro-link" href="/auth/logout">Logout</a>
+                </nav>
+            </div>
+
+            <div class="retro-shell">
+                <h1 class="retro-title">Set: <%= set.set_name %></h1>
+
+                <div class="bento-grid">
+                    <section class="retro-panel bento-tile bento-featured">
+                        <h2 class="retro-subtitle">Overview</h2>
+                        <p class="retro-meta">Release Date: <%= set.release_date %></p>
+                        <a class="retro-link" href="/sets">Back to Sets</a>
+                    </section>
+
+                    <section class="retro-panel bento-tile">
+                        <h2 class="retro-subtitle">Metadata</h2>
+                        <div class="retro-data-grid">
+                            <div class="retro-data-row">
+                                <span class="retro-data-key">Set ID</span>
+                                <span class="retro-data-value"><%= set.set_id %></span>
+                            </div>
+                            <div class="retro-data-row">
+                                <span class="retro-data-key">Cards</span>
+                                <span class="retro-data-value"><%= set.cards.length %></span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="retro-panel bento-tile">
+                        <h2 class="retro-subtitle">Set Image</h2>
+                        <div class="retro-image-frame">
+                            <% if (set.image_url) { %>
+                                <img src="<%= set.image_url %>" alt="<%= set.set_name %> artwork" />
+                            <% } else { %>
+                                <span class="retro-meta">No image available</span>
+                            <% } %>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="retro-section">
+                    <h2 class="retro-subtitle">Cards in this Set</h2>
+                    <ul class="retro-list retro-list-grid">
+                        <% set.cards.forEach((card, index) => { %>
+                            <li class="bento-tile <%= index === 0 ? 'bento-featured' : '' %>">
+                                <a href="/cards/<%= card.card_id %>">
+                                    <strong class="retro-accent"><%= card.card_name %></strong>
+                                    <div class="retro-meta">HP: <%= card.hp %></div>
+                                </a>
+                            </li>
+                        <% }) %>
+                    </ul>
+                </div>
+            </div>
+        </main>
     </div>
 </body>
 </html>
